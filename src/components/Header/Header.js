@@ -5,9 +5,7 @@ import { makeStyles } from "@material-ui/core/styles"
 import { LinkedIn, GitHub, Email } from "@material-ui/icons"
 
 const useStyles = makeStyles({
-  header: {
-    zIndex: 1,
-  },
+  header: {},
   introPadding: {
     padding: "5px 5px",
   },
@@ -50,17 +48,17 @@ const Header = () => {
       alignItems="center"
       className={classes.header}
     >
-      <Grid className={classes.introPadding}>
+      <Grid item container justify="center" className={classes.introPadding}>
         <Typography variant="h3">Jyotir Sai</Typography>
       </Grid>
-      <Grid className={classes.introPadding}>
+      <Grid item container justify="center" className={classes.introPadding}>
         <Typography variant="body1" align="center">
           Hi, I'm an engineering student at the University of Alberta. I like to
           blog about projects I'm working on, things I'm learning, and I
           sometimes make tutorials.
         </Typography>
       </Grid>
-      <Grid container justify="center">
+      <Grid item container justify="center">
         {contacts.map((contact, key) => (
           <Grid key={key}>
             <Link href={contact.link}>

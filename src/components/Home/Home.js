@@ -22,7 +22,6 @@ const useStyles = makeStyles({
     flexDirection: "column",
     height: "100%",
     zIndex: 10,
-    overflow: "auto",
   },
 })
 
