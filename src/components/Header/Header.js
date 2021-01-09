@@ -42,12 +42,7 @@ const Header = () => {
   ]
 
   return (
-    <Grid
-      container
-      direction="column"
-      alignItems="center"
-      className={classes.header}
-    >
+    <Grid container className={classes.header}>
       <Grid item container justify="center" className={classes.introPadding}>
         <Typography variant="h3">Jyotir Sai</Typography>
       </Grid>
