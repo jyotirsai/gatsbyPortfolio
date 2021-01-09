@@ -5,7 +5,9 @@ import { makeStyles } from "@material-ui/core/styles"
 import { LinkedIn, GitHub, Email } from "@material-ui/icons"
 
 const useStyles = makeStyles({
-  header: {},
+  header: {
+    marginBottom: 20,
+  },
   introPadding: {
     padding: "5px 5px",
   },
