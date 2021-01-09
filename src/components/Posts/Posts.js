@@ -37,7 +37,7 @@ const Posts = ({ data }) => {
   const { edges: posts } = data.allMdx
 
   return (
-    <Grid className={classes.postGrid}>
+    <Grid>
       <List component="ul">
         {posts.map(({ node: post }) => (
           <ListItem key={post.id}>

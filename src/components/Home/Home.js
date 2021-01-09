@@ -20,6 +20,9 @@ const useStyles = makeStyles({
     transform: "translate(-50%, 0)",
     display: "flex",
     flexDirection: "column",
+    height: "100%",
+    zIndex: 10,
+    overflow: "auto",
   },
 })
 
