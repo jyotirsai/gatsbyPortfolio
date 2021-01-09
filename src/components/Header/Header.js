@@ -5,6 +5,9 @@ import { makeStyles } from "@material-ui/core/styles"
 import { LinkedIn, GitHub, Email } from "@material-ui/icons"
 
 const useStyles = makeStyles({
+  header: {
+    zIndex: 1,
+  },
   introPadding: {
     padding: "5px 5px",
   },
@@ -41,7 +44,12 @@ const Header = () => {
   ]
 
   return (
-    <Grid container direction="column" alignItems="center">
+    <Grid
+      container
+      direction="column"
+      alignItems="center"
+      className={classes.header}
+    >
       <Grid className={classes.introPadding}>
         <Typography variant="h3">Jyotir Sai</Typography>
       </Grid>
