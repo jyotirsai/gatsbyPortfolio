@@ -1,0 +1,99 @@
+---
+title: React Chat App
+slug: react-chat-app
+date: 2020-09-28
+excerpt: A brief overview of a basic chat application I made with React, Express, socket.io, and Auth0.
+type: Web Development
+---
+
+Making a web application with socket.io was something I had on my to-do list for a while but being
+relatively new to web development, I was quite intimidated. After implementing sockets.io in a basic
+chat application, I was pleasantly surprised at how simple it was!
+
+I started learning React a couple
+months ago and immediately loved using it, so I chose React to build the front end / client side
+of the app. For the backend, I went with Express. I also chose Auth0 to implement authentication.
+
+The project has two main folders: client and server. React will reside in client and
+Express will be in server.
+
+```git
+npx create-react-app .
+```
+
+```git
+npm install Express
+```
+
+Socket.io is used to communicate between the client and server. In order to do this, we'll need to have
+the socket.io-client package installed in client/ and the socket.io package in server/.
+
+```git
+npm install socket.io-client
+```
+
+```git
+npm install socket.io
+```
+
+Before implementing socket.io, let's build the chat functionality. There are two main components: a container
+where the messages are displayed and a form that is composed of an input field for the user to type a message, and
+a button the user can click on to submit the message.
+
+```jsx
+// client/src/components/Chat.js
+import React, { useState, useEffect } from "react";
+import { Paper, Typography, Grid } from "@material-ui/core"
+import Messages from "./Messages/Messages";
+import FormBox from "./FormBox/FormBox";
+
+const Chat = () => {
+  const [messageItem, setMessageItem] = useState({
+    name: "",
+    message: "",
+  });
+  const [messageArray, setMessageArray] = useState([]);
+
+
+  useEffect(() => {
+    setMessageArray((messageArray) => [...messageArray, messageItem]);
+  }, []);
+
+  const submitClick = (e) => {
+      ...
+  };
+
+  return (
+    <Paper square variant="outlined">
+      <Grid container justify="space-between" direction="column">
+        <Grid item >
+          <Typography variant="h5" align="center">
+            Chat
+          </Typography>
+        </Grid>
+        <Grid
+          container
+          item
+          alignItems="flex-end"
+        >
+          <Messages messageArray={messageArray} />
+        </Grid>
+        <Grid item container justify="space-between">
+          <FormBox
+            submitClick={submitClick}
+            setMessageItem={setMessageItem}
+            messageItem={messageItem}
+          />
+        </Grid>
+      </Grid>
+    </Paper>
+  );
+};
+
+export default Chat;
+```
+
+I'll go over the above code block from the top. We are using the useState hook to set the state of our message item.
+The value of the input field where the user enters the message is set to the messageItem variable, which is an object with
+two fields: name and message. I'll talk more about the name field when we go over authentication. Initially, messageItem is blank
+and when the user types, we retrieve what they're typing with setMessageItem.

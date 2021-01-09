@@ -1,0 +1,225 @@
+---
+title: "Making a To-do list app with React: Part One"
+slug: react-to-do-list-part-one
+date: 2020-11-28
+excerpt: A simple introduction to React and Material UI. Part one will go over setting up the project and adding Material UI components.
+type: Web Development
+---
+
+This blog post will go over how to make a to-do list using React. We will be using the create-react-app CLI tool so let's go ahead and install that first. You will need to have [node](https://nodejs.org/en/) installed first.
+
+Create a new folder called todo-list and navigate over to it in your command line/terminal. Type the following command to install a basic React app in your current directory.
+
+```
+npx create-react-app .
+```
+
+npx is a tool that helps executing node packages and create-react-app provides the configurations and setup needed to create a single page React application.
+Adding a period at the end of the above command allows you to create a react app in the current directory, rather than specifying a brand new one.
+
+Type npm start in your command line to start your server. You should now see this in your browser on localhost:3000.
+
+Go over to your src folder and you'll see the files that are creating the above page. I want to start from scratch so I will delete all the files in this folder. Now create a new index.js and App.js file. Create React App uses Webpack and its configuration specifies that src/index.js is our entry point. Simply put, you have to name the file index.js and this will be the first module that's being read. Open index.js and type the following:
+
+```jsx
+// src/index.js
+import React from "react"
+import ReactDOM from "react-dom"
+```
+
+When using React, we will be writing our code in JSX. JSX allows us to write HTML elements in JavaScript. ReactDOM is a package that provides DOM specific methods such as the render method. The render method is used to render react components onto our webpage for us to see. Let's use this method to render "Hello World" on our webpage.
+
+```jsx {5}
+// src/index.js
+import React from "react"
+import ReactDOM from "react-dom"
+
+ReactDOM.render(<h1>Hello World</h1>, document.getElementById("root"))
+```
+
+The first argument in the render method is the JSX expression or React element that you want to render. The second argument is the container in which the element is to be rendered in. Go over to the public folder and open the index.html file. You should see a div element with the id root.
+
+```html
+<div id="root"></div>
+```
+
+This is the container that our render method above is using to display our Hello World h1 tag.
+
+I'll now show you how we can render a React Element. Create a new file in your src folder and name it "App.js" and type the following:
+
+```jsx
+// src/App.js
+import React from "react"
+
+const App = () => {
+  return <div></div>
+}
+
+export default App
+```
+
+The above is the boiler plate for a functional react component. Create an h1 tag inside the div and type "From App Component".
+
+```jsx {7}
+// src/App.js
+import React from "react"
+
+const App = () => {
+  return (
+    <div>
+      <h1>From App Component</h1>
+    </div>
+  )
+}
+
+export default App
+```
+
+In index.js, import the App function you just created. Remove the Hello World JSX expression and replace it with the App component.
+
+```jsx {4,6}
+// src/index.js
+import React from "react"
+import ReactDOM from "react-dom"
+import App from "./App"
+
+ReactDOM.render(<App />, document.getElementById("root"))
+```
+
+The webpage will now render the App component:
+
+Create a new folder within the src folder called components. Add two files within the folder, one named "AddItem.js" and the other "styles.js". In the AddItem.js file, add the basic functional boilerplate code. If you are using Visual Studio Code, there is an [extension](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets) that gives you useful shortcuts. After installing this extension, type rafce and enter to automatically generate the functional boilerplate code.
+
+```jsx
+// src/components/AddItem.js
+import React from "react"
+
+const AddItem = () => {
+  return <div></div>
+}
+
+export default AddItem
+```
+
+In the App.js file, import the AddItem function from the components folder. Remove the h1 tag and replace it with the AddItem component.
+
+```jsx {3,8}
+// src/App.js
+import React from "react"
+import AddItem from "./components/AddItem"
+
+const App = () => {
+  return (
+    <div>
+      <AddItem />
+    </div>
+  )
+}
+
+export default App
+```
+
+To create the Todo List styling, we will be using [Material UI](https://material-ui.com/). Open your terminal and install the following:
+
+```
+npm install @material-ui/core @material-ui/styles @material-ui/icons
+```
+
+Material UI is a React UI framework that has beautifully styled components you can use in your projects. Import the following components into AddItem.js
+
+```jsx {1,3}
+// src/components/AddItem.js
+import React from "react"
+import { Grid, Paper, Textfield, Typography, Button } from "@material-ui/core"
+
+const AddItem = () => {
+  return <div></div>
+}
+
+export default AddItem
+```
+
+Inside the div, add the [Paper](https://material-ui.com/components/paper/) element. The paper element is where the to-do list will reside in and we can set the elevation prop to add a drop shadow effect.
+
+```jsx {6}
+// src/components/AddItem.js
+...
+const AddItem = () => {
+  return (
+    <div>
+      <Paper elevation={3}></Paper>
+    </div>
+  )
+}
+```
+
+You can read more about React props [here](https://www.w3schools.com/react/react_props.asp). In the context of Material UI, props allow us to customize elements. Let's add a title named "My To-Do List" using the Typography element. Inside the Paper element, add a Typography element like below:
+
+```jsx {7-9}
+// src/components/AddItem.js
+...
+const AddItem = () => {
+    return (
+        <div>
+            <Paper elevation={3}>
+                <Typography align="center" variant="h2">
+                    My To-Do List
+                </Typography>
+            </Paper>
+        </div>
+    )
+}
+```
+
+The align="center" prop centers the text and the variant="h2" applies h2 styling to the text inside this element. Below the Typography element, add a Grid element. The container prop is used to wrap items with flex behavior and the spacing prop specifies the spacing between elements wrapped in the Grid. Within our Grid we're going to have two more grids, one for the input where the user can enter a task and the other for the button used to submit a task.
+
+```jsx {10-15}
+// src/components/AddItem.js
+...
+const AddItem = () => {
+    return (
+        <div>
+            <Paper elevation={3}>
+                <Typography align="center" variant="h2">
+                    My To-Do List
+                </Typography>
+                <Grid container spacing={1}>
+                    <Grid item xs={9} sm={10} md={10} lg={11}>
+                    </Grid>
+                    <Grid item xs={3} sm={2} md={2} lg={1}>
+                    </Grid>
+                </Grid>
+            </Paper>
+        </div>
+    )
+}
+```
+
+The item prop specifies that the component will behave like a flex item. The xs sm md and lg props specify how the Grid changes with screen size and you can read more about them [here](https://material-ui.com/components/grid/).
+Within the first Grid item, we will add a TextField component which allows text input. In the second Grid item, add a Button component.
+
+```jsx {12-14,17}
+// src/components/AddItem.js
+...
+const AddItem = () => {
+    return (
+        <div>
+            <Paper elevation={3}>
+                <Typography align="center" variant="h2">
+                    My To-Do List
+                </Typography>
+                <Grid container spacing={1}>
+                    <Grid item xs={9} sm={10} md={10} lg={11}>
+                        <TextField color="secondary" autocomplete="false"
+                         fullWidth id="task" label="Enter Task" variant="outlined"
+                        />
+                    </Grid>
+                    <Grid item xs={3} sm={2} md={2} lg={1}>
+                        <Button fullWidth variant="outlined" color="secondary" >
+                    </Grid>
+                </Grid>
+            </Paper>
+        </div>
+    )
+}
+```
