@@ -12,31 +12,15 @@ chat application, I was pleasantly surprised at how simple it was!
 
 I started learning React a couple
 months ago and immediately loved using it, so I chose React to build the front end / client side
-of the app. For the backend, I went with Express. I also chose Auth0 to implement authentication.
+of the app. For the backend, I went with Express.js. I also chose Auth0 to implement authentication.
 
 The project has two main folders: client and server. React will reside in client and
 Express will be in server.
 
-```git
-npx create-react-app .
-```
-
-```git
-npm install Express
-```
-
 Socket.io is used to communicate between the client and server. In order to do this, we'll need to have
 the socket.io-client package installed in client/ and the socket.io package in server/.
 
-```git
-npm install socket.io-client
-```
-
-```git
-npm install socket.io
-```
-
-Before implementing socket.io, let's build the chat functionality. There are two main components: a container
+Before implementing socket.io, I built the chat functionality. There are two main components: a container
 where the messages are displayed and a form that is composed of an input field for the user to type a message, and
 a button the user can click on to submit the message.
 
@@ -96,4 +80,49 @@ export default Chat;
 I'll go over the above code block from the top. We are using the useState hook to set the state of our message item.
 The value of the input field where the user enters the message is set to the messageItem variable, which is an object with
 two fields: name and message. I'll talk more about the name field when we go over authentication. Initially, messageItem is blank
-and when the user types, we retrieve what they're typing with setMessageItem.
+and when the user types, we retrieve what they're typing with setMessageItem. When the user submits their message, it is added to the messagesArray array.
+The messagesArray is passed to the Messages component which displays all the messages.
+
+We need to make sure that the messages are displayed to everyone, so we need to emit the messages to our server via socket.io. To do this, we'll use the useEffect hook
+which runs code whenever there is a side effect, such as a DOM element changing. Basically, whenever a message is submitted, the useEffect hook will take that message and add it
+to the messagesArray using sockets.
+
+```js {1}
+// client/src/components/Chat.js
+
+const submitClick = e => {
+  e.preventDefault()
+  if (messageItem.message) {
+    socket.emit("message", messageItem)
+    setMessageItem({ ...messageItem, message: "" })
+  }
+}
+```
+
+The above code emits the user's message to the server.
+
+```js {1}
+// server/index.js
+...
+io.on("connection", (socket) => {
+  socket.on("message", (messageItem) => {
+    io.emit("message", messageItem);
+  });
+});
+```
+
+The server receives the message from the client and emits them back to all the connected sockets.
+
+```js {1}
+// client/src/components/Chat.js
+
+useEffect(() => {
+  socket.on("message", messageItem => {
+    setMessageArray(messageArray => [...messageArray, messageItem])
+  })
+}, [])
+```
+
+The client receives messages from the server and adds them to a single messagesArray which is then used in the Messages component which renders the messages to the screen.
+
+And that's all there really is to it. Feel free to take a look at the code on my github to see it further in depth.
