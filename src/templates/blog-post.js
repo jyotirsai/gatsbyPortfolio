@@ -7,6 +7,7 @@ import BlogLayout from "./blog-layout"
 import { Typography } from "@material-ui/core"
 import CodeBlock from "../components/CodeBlock/CodeBlock"
 import { preToCodeBlock } from "mdx-utils"
+import { Helmet } from "react-helmet"
 import "./layout.css"
 
 const shortcodes = {
@@ -26,6 +27,9 @@ const shortcodes = {
 export default function PageTemplate({ data: { mdx } }) {
   return (
     <BlogLayout>
+      <Helmet>
+        <title>{mdx.frontmatter.title}</title>
+      </Helmet>
       <Typography variant="h3">{mdx.frontmatter.title}</Typography>
       <Typography style={{ color: "#989898" }} gutterBottom>
         {mdx.frontmatter.date}

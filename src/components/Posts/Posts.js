@@ -30,6 +30,9 @@ const useStyles = makeStyles({
     overflow: "auto",
     minHeight: 0,
   },
+  linkColor: {
+    color: "#E0E0E0",
+  },
 })
 
 const Posts = ({ data }) => {
@@ -42,7 +45,10 @@ const Posts = ({ data }) => {
         {posts.map(({ node: post }) => (
           <ListItem key={post.id}>
             <Grid>
-              <Link to={`blog/${post.frontmatter.slug}`}>
+              <Link
+                to={`blog/${post.frontmatter.slug}`}
+                className={classes.linkColor}
+              >
                 <Typography variant="h5">{post.frontmatter.title}</Typography>
               </Link>
               <Typography>

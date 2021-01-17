@@ -1,10 +1,15 @@
 import React from "react"
+import { Helmet } from "react-helmet"
 import { graphql } from "gatsby"
 import Home from "../components/Home/Home"
 import Background from "../components/Background/Background"
 
 const IndexPage = ({ data }) => (
   <Background>
+    <Helmet>
+      <title>jyotirsai.com</title>
+      <link href="https://jyotirsai.com" />
+    </Helmet>
     <Home data={data} />
   </Background>
 )

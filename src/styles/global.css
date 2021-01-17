@@ -6,7 +6,7 @@ body {
 }
 
 a {
-  color: inherit;
+  color: cyan;
   text-decoration: none;
 }
 
@@ -43,5 +43,6 @@ p {
 }
 
 li {
+  font-size: 1.2em;
   line-height: 2em;
 }

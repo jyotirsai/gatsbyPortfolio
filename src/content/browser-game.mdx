@@ -1,20 +1,20 @@
 ---
 title: "Making My First JavaScript Browser Game: Part 1"
-slug: aim-duel
+slug: browser-game
 date: 2020-12-21
-excerpt: Aim duel is a basic browser game I made with JavaScript, HTML canvas, and more.
+excerpt: A basic browser game I made with JavaScript, HTML canvas, and more.
 type: Web Development
 ---
 
 There are many examples of successful browser games such as agar.io, slither.io, diep.io, skribbl.io, and more. The impressive part of these games is that they're usually made by a single
 person. I wanted to learn more about making games for the web, so I decided to make my own basic browser game called Aim Duel. The concept is fairly simple and not exactly original, two players click on a
-series of targets and the person who clicks them the quickest wins!
+series of targets and the person who clicks them the quickest wins! The full code is available on my <a href="https://github.com/jyotirsai/aimduel">Github</a>. You can also play it <a href="https://stormy-spire-67616.herokuapp.com/">here</a>!.
 
-The part of this project I was most interested in learning was the networking side i.e. making the game multiplayer. Therefore, I tried to keep everything game related as simple as possible, for the most part.
+The part of this project I was most interested in learning was the networking side i.e. making the game multiplayer. Therefore, I tried to keep everything game related as simple as possible.
 Since I wanted to keep things simple, I decided to go with the 2d HTML rendering context rather than using something like WebGL. My targets would also just be circles that randomly appear across the screen.
 
 My plan was to first make a single player version of the game and then add multiplayer. Before I started the game, I wanted to add webpack so I wouldn't have to worry about manually ordering my scripts to satisfy
-dependencies. I split the webpack configurations into development and production, where the production config focused on optimizing the build for production and development.
+dependencies. I split the webpack configurations into development and production, where the production config focused on optimizing the build for production.
 
 ```js {1}
 // webpack.prod.js
